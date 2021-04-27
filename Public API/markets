@@ -1,4 +1,5 @@
 ```JS
+For authorized (POST) or unauthorized (GET)
 response: {
 	success: true,
   message: "",
