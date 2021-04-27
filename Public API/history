@@ -1,0 +1,46 @@
+```jsx
+For authorized (POST) or unauthorized (GET)
+request: {
+    	market: "ETH_BTC" //ETH_BTC, BTC_ETH ...etc
+			lastId: 1
+			limit: 100 //optional; default value = 50
+    }
+    
+    response: {
+    	success: true,
+      message: "",
+      result: [
+            {
+                "id": 265,
+                "time": 1533292963.202649,
+                "price": "2",
+                "type": "sell",
+                "amount": "1"
+            },
+            {
+                "id": 263,
+                "time": 1533292880.088096,
+                "price": "2",
+                "type": "sell",
+                "amount": "1"
+            },
+						{...}
+    ]
+    }
+    
+response: {
+	success: false,
+  message: "Result is empty",
+  result: []
+} 
+
+response: {
+	success: false,
+  message: [
+		[
+			"//Error message...",
+		]
+]
+  result: []
+}
+```
