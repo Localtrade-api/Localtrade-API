@@ -1,0 +1,33 @@
+```jsx
+For authorized (POST) or unauthorized (GET)
+
+request: {
+    	market: "ETH_BTC" //ETH_BTC, BTC_ETH ...etc
+			limit: 100 //optional; default value = 50
+}
+
+response: {
+			  "asks": [
+						[
+							"6322.8",
+							"3.05500305"
+						],
+						[
+							"6323.9",
+							"0.00825301"
+						],
+						[...],
+				],
+				"bids": [
+						[
+							"6322.8",
+							"3.05500305"
+						],
+						[
+							"6323.9",
+							"0.00825301"
+						],
+						[...],
+				]
+}
+```
