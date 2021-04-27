@@ -1,0 +1,34 @@
+```JS
+response: {
+	success: true,
+  message: "",
+  result: [
+        {
+            "name": "ETH_BTC",
+            "moneyPrec": 8,
+            "stock": "ETH",
+            "money": "BTC",
+            "stockPrec": 8,
+            "feePrec": 4,
+            "minAmount": "0.001"
+        },
+        {...},
+]
+}
+
+response: {
+	success: false,
+  message: "Result is empty",
+  result: []
+} 
+
+response: {
+	success: false,
+  message: [
+		[
+			"//Error message...",
+		]
+]
+  result: []
+}
+```
