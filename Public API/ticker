@@ -1,0 +1,36 @@
+```jsx
+For authorized (POST) or unauthorized (GET)
+
+request: {
+	market: ETH_BTC //ETH_BTC, BTC_ETH ...etc
+}
+
+response: {
+	success: true,
+  message: "",
+  result: {
+            "volume": "0",
+            "open": "2",
+            "low": "2",
+            "last": "2",
+            "deal": "0",
+            "high": "2"
+      }
+}
+
+response: {
+	success: false,
+  message: "Result is empty",
+  result: []
+} 
+
+response: {
+	success: false,
+  message: [
+		[
+			"//Error message...",
+		]
+]
+  result: []
+}
+```
