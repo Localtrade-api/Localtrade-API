@@ -1,0 +1,17 @@
+```jsx
+For authorized (POST) or unauthorized (GET)
+
+response: {
+  success: true,
+  message: "",
+  result: [
+			  "ETH_BTC",
+        "OCC_BTC",
+        "OCC_ETH",
+        "OCC_USD",
+        "BTC_USD",
+        "ETH_USD",
+				...
+	   ]
+ }
+```
