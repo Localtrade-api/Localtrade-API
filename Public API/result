@@ -1,0 +1,37 @@
+```jsx
+For authorized (POST) or unauthorized (GET)
+
+request: {
+    	market: "ETH_BTC" //ETH_BTC, BTC_ETH ...etc
+			since: 1
+			limit: 100 //optional; default value = 50
+    }
+    
+    response: [
+			    	{
+                "tid": 265,
+                "date": 1533292963,
+                "price": "2",
+                "type": "sell",
+                "amount": "1"
+            },
+            {
+                "tid": 263,
+                "time": 1533292880,
+                "price": "2",
+                "type": "sell",
+                "amount": "1"
+            },
+						{...}
+    ]
+
+response: {
+	success: false,
+  message: [
+		[
+			"//Error message...",
+		]
+]
+  result: []
+}
+```
