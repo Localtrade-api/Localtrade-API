@@ -1,0 +1,56 @@
+```jsx
+POST
+Only after Authentication
+
+request: {
+	"offset": 10, //optional; default value 0
+	"limit": 100// optional; default value 50
+}
+
+response: {
+		{
+    "success": true,
+    "message": "",
+    "result": {
+        "ETH_BTC": [
+            {
+                "amount": "1",
+                "price": "0.01",
+                "type": "limit" | "market",
+                "id": 9740,
+                "side": "sell" | "buy",
+                "ctime": 1533568890.583023,
+                "takerFee": "0.002",
+                "ftime": 1533630652.62185,
+                "market": "ETH_BTC",
+                "makerFee": "0.002",
+                "dealFee": "0.002",
+                "dealStock": "1",
+                "dealMoney": "0.01",
+                "marketName": "ETH_BTC"
+            },
+						{...}
+					],
+						"ATB_USD": [
+            {
+                "amount": "0.3",
+                "price": "0.06296168",
+                "type": "limit" | "market",
+                "id": 11669,
+                "source": "",
+                "side": "sell" | "buy",
+                "ctime": 1533626329.696647,
+                "takerFee": "0.002",
+                "ftime": 1533626329.696659,
+                "market": "ATB_USD",
+                "makerFee": "0.002",
+                "dealFee": "0.000037777008",
+                "dealStock": "0.3",
+                "dealMoney": "0.018888504",
+                "marketName": "ATB_USD"
+            },
+						{...}
+						]
+			}
+	}
+```
