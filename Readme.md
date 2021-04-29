@@ -234,10 +234,10 @@ limit | NUMERIC | NO | Default 50; min 1; max 1000
 
 ```javascript
 {
-  market: "ETH_BTC" //ETH_USDT, BTC-ETH ...etc
-  side: "sell" //or buy
-  offset: 0 //optional; default value 0
-  limit: 100 //optional; default value = 50
+  market: "ETH_BTC" 
+  side: "sell" 
+  offset: 0 
+  limit: 100 
 }
 ```
 url exapmle
