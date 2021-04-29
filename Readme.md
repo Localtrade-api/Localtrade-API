@@ -519,7 +519,7 @@ interval | NUMERIC | NO | Default 60; min 60; max 604800 sec
 ```
 url exapmle
 ```
-https://api.coinsbit.in/api/v1/public/kline?market=ETH_BTC&start=1619695680&end=1619699280&interval=60
+/api/v1/public/kline?market=ETH_BTC&start=1619695680&end=1619699280&interval=60
 ```
 
 **Response Parameters:**
