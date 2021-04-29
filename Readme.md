@@ -562,6 +562,9 @@ market | STRING |
         {
           ...
         },
+     ]
+  }
+}
 ```
 
 </details>
