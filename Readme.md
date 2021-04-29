@@ -153,7 +153,7 @@ market | STRING | YES | Any Public Market
 
 ```javascript
 {
-market: ETH_BTC 
+  market: ETH_BTC 
 }
 ```
 
@@ -233,12 +233,12 @@ limit | NUMERIC | NO | Default 50; min 1; max 1000
 
 
 ```javascript
-    {
-      market: "ETH_BTC" //ETH_USDT, BTC-ETH ...etc
-      side: "sell" //or buy
-      offset: 0 //optional; default value 0
-      limit: 100 //optional; default value = 50
-    }
+{
+  market: "ETH_BTC" //ETH_USDT, BTC-ETH ...etc
+  side: "sell" //or buy
+  offset: 0 //optional; default value 0
+  limit: 100 //optional; default value = 50
+}
 ```
 url exapmle
 ```
@@ -511,10 +511,10 @@ interval | NUMERIC | NO | Default 60; min 60; max 604800 sec
 
 ```javascript
 {
-      market: "ETH_BTC" 
-      start: 1601359005 
-      end: 1601389005 
-      interval: 60 
+  market: "ETH_BTC" 
+  start: 1601359005 
+  end: 1601389005 
+  interval: 60 
 }
 ```
 url exapmle
