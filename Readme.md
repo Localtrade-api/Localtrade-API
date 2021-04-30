@@ -1,5 +1,8 @@
-- [General Information on Endpoints](#general-information-on-endpoints)
-- [Return Codes](#return-codes)
+# Menu
+- [HTTP Protocol API](#http-protocol-api)
+- [WebSocet Protocol API (WC)](#websocet-protocol-api)
+
+# HTTP Protocol API
 
 ## General Information on Endpoints
   <details open>
@@ -574,13 +577,13 @@ market | STRING |
 
 
 
-## WebSocets (WC)
+# WebSocet Protocol API
 
 The API is based on JSON RPC of Websocket protocol. 
 Repeated subscription will be cancelled for the same data type.
 
 
-### Basic WS structure
+## Basic WS structure
 
 **Request**
 
