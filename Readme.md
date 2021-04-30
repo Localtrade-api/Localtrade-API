@@ -863,7 +863,7 @@ market | STRING |
 </details>
 
 
-### KLine Cancel Subscribtion Method
+### KLine Unsubscribe Method
   <details open>
   <summary>
   </summary>
@@ -881,7 +881,152 @@ kline.unsubscribe
 {
   "method":"kline.unsubscribe",
   "params":[],
-  "id":0
+  "id":16
+}
+```
+</details>
+
+
+## Market Price Methods
+
+
+### Market Price Query Method
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+price.query
+```
+
+**Request Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+market | STRING | 
+
+
+**Request:**
+```javascript
+{
+  "method":"price.query",
+  "params":
+    [
+      "ETH_BTC",
+      "BTC_USD"
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+market | STRING |
+price | STRING |
+
+
+
+**Response:**
+```javascript
+{ 
+  "method":"price.query",
+  "params":
+    [
+      "ETH_BTC",
+      "0.01860351"
+    ],
+  "id":111
+}
+```
+
+</details>
+
+### Market Price Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+price.subscribe
+```
+
+
+**Request Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+market | STRING | 
+
+
+**Request:**
+```javascript
+{
+  "method":"price.query",
+  "params":
+    [
+      "ETH_BTC",
+      "BTC_USD"
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+
+```
+price.update
+```
+
+
+Name | Type | 
+------------ | ------------ 
+market | STRING |
+price | STRING |
+
+
+
+**Response:**
+```javascript
+{ 
+  "method":"price.update",
+  "params":
+    [
+      "ETH_BTC",
+      "0.01860351"
+    ],
+  "id":null
+}
+```
+
+</details>
+
+
+### Market Price Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+price.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"price.unsubscribe",
+  "params":[],
+  "id":16
 }
 ```
 </details>
