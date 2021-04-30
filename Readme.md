@@ -1,3 +1,16 @@
+- [General Information on Endpoints](#general-information-on-endpoints)
+- [Return Codes](#return-codes)
+
+## General Information on Endpoints
+  <details open>
+  <summary>
+  </summary>
+
+* All public methods requested with `GET` and consist only publick data. 
+* To receive all data and work with private data, use `POST` with API keys (Read Authorization)
+
+    </details>
+
 ## Return Codes
   <details open>
   <summary>
@@ -9,16 +22,6 @@
 * HTTP `404` return code is used when the request made with undefined data and service can Not Found data for response.
 
   </details>
-
-## General Information on Endpoints
-  <details open>
-  <summary>
-  </summary>
-
-* All public methods requested with `GET` and consist only publick data. 
-* To receive all data and work with private data, use `POST` with API keys (Read Authorization)
-
-    </details>
 
 
 ## Methods with Puplic Data
@@ -568,3 +571,52 @@ market | STRING |
 ```
 
 </details>
+
+
+
+## WebSocets (WC)
+
+The API is based on JSON RPC of Websocket protocol. 
+Repeated subscription will be cancelled for the same data type.
+
+
+### Basic WS structure
+
+**Request**
+
+* Endpoint
+```
+wss://localtrade.cc/ws
+```
+
+Name | Type | 
+------------ | ------------ 
+method | STRING | 
+params | ARRAY |
+id | INTEGER |
+
+
+**Response**
+
+
+Name | Type | Success | Error
+------------ | ------------ | ------------ | ------------ 
+result | JSON Object | Response | Failure
+Error | JSON Object | NULL | Failure
+id | Integer | Integer | Integer
+
+
+**Notify**
+
+Name | Type | 
+------------ | ------------ 
+method | STRING | 
+params | ARRAY |
+id | NULL |
+
+
+
+### PING Method
+
+
+
