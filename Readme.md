@@ -615,8 +615,273 @@ params | ARRAY |
 id | NULL |
 
 
+**General error code:**
 
-### PING Method
+* invalid argument
+* internal error
+* service unavailable
+* method not found
+* service timeout
+* require authentication
+
+
+### PING-PONG Method
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+server.ping
+```
+
+**Request**
+```javascript
+{
+  "method":"server.ping",
+  "params":[],
+  "id":1000}
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+result | STRING | 
+ID | NUMERIC |
+Error | NULL |
 
 
 
+**Response:**
+```javascript
+{
+  "error": null, 
+  "result": "pong",
+  "id": 1000
+}
+```
+
+</details>
+
+### System Time Method
+  <details open>
+  <summary>
+  </summary>
+
+
+**Request:**
+
+**Method**
+```
+server.time
+```
+
+**Request**
+```javascript
+{
+  "method":"server.time",
+  "params":[],
+  "id":0
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+result | TimeStamp, INTEGER | 
+ID | NUMERIC |
+Error | NULL |
+
+
+
+**Response:**
+```javascript
+{
+  "error": null, 
+  "result": 1493285895,
+  "id": 1000
+}
+```
+
+</details>
+
+
+## KLine Methods (Graphic)
+
+
+
+### KLine Query Method
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+kline.query
+```
+
+**Request Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+market | STRING | 
+interval | NUMERIC |
+
+**Request:**
+```javascript
+{
+  "method":"kline.query",
+  "params":
+    [
+      "ETH_BTC",
+      3600
+    ],
+  "id":1000
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+time | TimeStamp, INTEGER | 
+open | STRING |
+close | STRING |
+highest | STRING |
+lowest | STRING |
+volume | STRING |
+amount | STRING |
+market | STRING |
+
+
+
+**Response:**
+```javascript
+{
+  "method": "kline.query",
+  "params": 
+    [
+      [
+        1568548260, //time
+        "0.018302", //open
+        "0.018302", //close
+        "0.018302", //highest
+        "0.018302", //lowest
+        "500",      //volume
+        "15",       //amount
+        "ETH_BTC"   //market
+      ]
+    ],
+  "id": 1000
+}
+```
+
+</details>
+
+### KLine Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+kline.subscribe
+```
+
+**Request Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+market | STRING | 
+interval | NUMERIC |
+
+**Request:**
+```javascript
+{
+  "method":"kline.subscribe",
+  "params":
+    [
+      "ETH_BTC",
+      3600
+    ],
+  "id":1000
+}
+```
+
+
+**Response Parameters:**
+
+
+```
+kline.update
+```
+
+
+Name | Type | 
+------------ | ------------ 
+time | TimeStamp, INTEGER | 
+open | STRING |
+close | STRING |
+highest | STRING |
+lowest | STRING |
+volume | STRING |
+amount | STRING |
+market | STRING |
+
+
+
+**Response:**
+
+```javascript
+{
+  "method": "kline.update",
+  "params": 
+    [
+      [
+        1568548260, //time
+        "0.018302", //open
+        "0.018302", //close
+        "0.018302", //highest
+        "0.018302", //lowest
+        "500",      //volume
+        "15",       //amount
+        "ETH_BTC"   //market
+      ]
+    ],
+  "id": null
+}
+```
+
+</details>
+
+
+### KLine Cancel Subscribtion Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+kline.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"kline.unsubscribe",
+  "params":[],
+  "id":0
+}
+```
+</details>
