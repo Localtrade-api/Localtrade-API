@@ -465,23 +465,23 @@ amount | STRING |2st parametr - in left side currency
   "asks":
     [
       [
-        "0.05084851",
-        "21.437"
+        "0.05084851", //price
+        "21.437"      //amount
       ],
       [
-        "0.05084951",
-        "0.453"
+        "0.05084951", //price
+        "0.453"       //amount
       ]
     ],
   "bids":
     [
       [
-        "0.05084649",
-        "3.99"
+        "0.05084649", //price
+        "3.99"        //amount
       ],
       [
-        "0.05084549",
-        "18.15"
+        "0.05084549", //price
+        "18.15"       //amount
       ]
     ]
 }
@@ -1410,9 +1410,9 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"depth.query",
   "params":
     [
-      "ETH_BTC",
-      1,
-      "0"
+      "ETH_BTC",  //market
+      1,          //limit
+      "0"         //interval
     ],
   "id":111
 }
@@ -1438,15 +1438,15 @@ price | STRING |
       "asks": 
        [
           [
-            "8000.00",
-            "9.6250"
+            "8000.00", //price
+            "9.6250"   //amount
           ]
        ],
       "bids": 
        [
          [
-           "7000.00",
-           "0.1000"
+           "7000.00",  //price
+           "0.1000"    //amount
          ]
        ]
    "id": 111,
@@ -1479,9 +1479,9 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"depth.subscribe",
   "params":
     [
-      "ETH_BTC",
-      1,
-      "0"
+      "ETH_BTC",    //market
+      1,            //limit
+      "0"           //interval
     ],
   "id":111
 }
