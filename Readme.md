@@ -1,6 +1,6 @@
 # Menu
 - [HTTP Protocol API](#http-protocol-api)
-- [WebSoket Protocol API (WC)](#websoket-protocol-api)
+- [WebSoket Protocol API](#websoket-protocol-api)
 
 # HTTP Protocol API
 
