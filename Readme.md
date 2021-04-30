@@ -1,6 +1,6 @@
 # Menu
 - [HTTP Protocol API](#http-protocol-api)
-- [WebSocet Protocol API (WC)](#websocet-protocol-api)
+- [WebSoket Protocol API (WC)](#websoket-protocol-api)
 
 # HTTP Protocol API
 
@@ -577,7 +577,7 @@ market | STRING |
 
 
 
-# WebSocet Protocol API
+# WebSoket Protocol API
 
 The API is based on JSON RPC of Websocket protocol. 
 Repeated subscription will be cancelled for the same data type.
@@ -628,7 +628,7 @@ id | NULL |
 * require authentication
 
 
-### PING-PONG Method
+## PING-PONG Method
   <details open>
   <summary>
   </summary>
@@ -670,7 +670,7 @@ Error | NULL |
 
 </details>
 
-### System Time Method
+## System Time Method
   <details open>
   <summary>
   </summary>
