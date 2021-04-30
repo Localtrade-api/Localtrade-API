@@ -903,9 +903,9 @@ price.query
 
 **Request Parameters:**
 
-Name | Type | 
------------- | ------------ 
-market | STRING | 
+Name | Type | Descriprion |
+------------ | ------------ | ------------ 
+market | STRING | Can be few markets per request
 
 
 **Request:**
@@ -915,7 +915,6 @@ market | STRING |
   "params":
     [
       "ETH_BTC",
-      "BTC_USD"
     ],
   "id":111
 }
@@ -959,19 +958,18 @@ price.subscribe
 
 **Request Parameters:**
 
-Name | Type | 
------------- | ------------ 
-market | STRING | 
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Can be few markets per request
 
 
 **Request:**
 ```javascript
 {
-  "method":"price.query",
+  "method":"price.subscribe",
   "params":
     [
       "ETH_BTC",
-      "BTC_USD"
     ],
   "id":111
 }
@@ -1030,3 +1028,535 @@ price.unsubscribe
 }
 ```
 </details>
+
+
+## Market Status Methods
+
+
+### Market status Query Method
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+state.query
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any exchange market
+period | NUMERIC | Default: 86400
+
+
+
+**Request:**
+```javascript
+{
+  "method":"state.query",
+  "params":
+    [
+      "ETH_BTC",
+      86400
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+period | NUMERIC |
+volume | STRING |
+last | STRING |
+open | STRING |
+low | STRING |
+close | STRING |
+high | STRING |
+deal | STRING |
+
+
+**Response:**
+```javascript
+{
+  "result": 
+    {
+      "period": 86400, 
+      "volume": "192238.62392908",
+      "last": "0.018295",
+      "open": "0.017526",
+      "low": "0.0174",
+      "close": "0.018295",
+      "high": "0.02",
+      "deal": "3479.25570915213257"
+    },
+  "error": null,
+  "id": 111
+}
+```
+
+</details>
+
+### Market Status Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+state.subscribe
+```
+
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any exchange market
+period | NUMERIC | Default: 86400
+
+
+
+**Request:**
+```javascript
+{
+  "method":"state.subscribe",
+  "params":
+    [
+      "ETH_BTC",
+      86400
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+```
+state.update
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+period | NUMERIC |
+volume | STRING |
+last | STRING |
+open | STRING |
+low | STRING |
+close | STRING |
+high | STRING |
+deal | STRING |
+
+
+**Response:**
+```javascript
+{
+  "result": 
+    {
+      "period": 86400, 
+      "volume": "192238.62392908",
+      "last": "0.018295",
+      "open": "0.017526",
+      "low": "0.0174",
+      "close": "0.018295",
+      "high": "0.02",
+      "deal": "3479.25570915213257"
+    },
+  "error": null,
+  "id": null
+}
+```
+
+</details>
+
+
+### Market Status Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+state.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"state.unsubscribe",
+  "params":[],
+  "id":16
+}
+```
+</details>
+
+## Deals Methods (Latest Order List)
+
+
+### Deals Query Method 
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+deals.query
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Can be few markets per request
+
+
+**Request:**
+```javascript
+{
+  "method":"deals.query",
+  "params":
+    [
+      "ETH_BTC",
+      "BTC_USD"
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | NUMERIC |
+time | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+{
+  "method": "deals.query",
+  "params": 
+    [
+      "ETH_BTC",
+        [
+          {
+            "type": "sell",
+            "time": 1568556382.1329091,
+            "id": 5478754,
+            "amount": "4.9193309",
+            "price": "10365.40703518"
+          }
+        ],
+      "BTC_USD",
+        [
+          {
+            ...
+          }
+        ],
+    ],
+  "id": 111
+}
+```
+
+</details>
+
+### Deals Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+deals.subscribe
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Can be few markets per request
+
+
+
+**Request:**
+```javascript
+{
+  "method":"deals.subscribe",
+  "params":
+    [
+      "ETH_BTC",
+      "BTC_USD"
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+```
+deals.update
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | NUMERIC |
+time | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+{
+  "method": "deals.update",
+  "params": 
+    [
+      "ETH_BTC",
+        [
+          {
+            "type": "sell",
+            "time": 1568556382.1329091,
+            "id": 5478754,
+            "amount": "4.9193309",
+            "price": "10365.40703518"
+          }
+        ],
+      "BTC_USD",
+        [
+          {
+            ...
+          }
+        ],
+    ],
+  "id": null
+}
+```
+
+</details>
+
+
+### Deals Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+deals.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"deals.unsubscribe",
+  "params":[],
+  "id":16
+}
+```
+</details>
+
+
+## Depth Methods (Order Book)
+
+
+### Depth Query Method 
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+depth.query
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"depth.query",
+  "params":
+    [
+      "ETH_BTC",
+      1,
+      "0"
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+}
+  "method":"depth.query",
+  "result": 
+   {
+      "asks": 
+       [
+          [
+            "8000.00",
+            "9.6250"
+          ]
+       ],
+      "bids": 
+       [
+         [
+           "7000.00",
+           "0.1000"
+         ]
+       ]
+   "id": 111,
+}
+```
+
+</details>
+
+### Deals Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+depth.subscribe
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"depth.subscribe",
+  "params":
+    [
+      "ETH_BTC",
+      1,
+      "0"
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+```
+depth.update
+```
+
+
+**Response Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+clean | BOOLEAN | FALSE: returned latest result, TRUE - no updates
+limit | NUMERIC | Return update from last result with limit
+market | STRING | Subscribed market
+id | NUMERIC | Request ID
+Type | String | Order type 
+Amount | String | order amount in 1st Ticker
+Price | String | order price in 1st Ticker
+
+
+
+**Response:**
+```javascript
+{
+  "method": "depth.update",
+  "params": 
+    [
+      true, 
+        {
+          "asks": 
+            [
+              [
+                "0.018519", //price
+                "120.6"     //amount
+              ]
+            ],
+          "bids": 
+            [
+              [
+                "0.01806",    //price
+                "90.31637262" //amount
+              ]
+            ]
+        }, 
+      "ETH_BTC"
+    ],
+  "id": null
+}
+```
+
+</details>
+
+
+### Depth Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+depth.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"depth.unsubscribe",
+  "params":[],
+  "id":16
+}
+```
+</details>
+
