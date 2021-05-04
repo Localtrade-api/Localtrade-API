@@ -2,7 +2,7 @@
 - [HTTP Protocol API](#http-protocol-api)
   - [General Information of Endpoints](#general-information-of-endpoints)
   - [Return Codes of Errors](#return-codes-of-errors)
-  - [Methods with Puplic Data](##methods-with-puplic-data)
+  - [Public Data Methods](#puplic-data-methods)
     - [List of Puplic Pairs](#list-of-puplic-pairs)
     - [Specific Public Ticker Data](#specific-public-ticker-data)
     - [List of Order Book](#list-of-order-book)
@@ -61,7 +61,7 @@
   </details>
 
 
-## Methods with Puplic Data
+## Public Data Methods
 
 All public methods requested with `GET` and consist only publick data.
 
