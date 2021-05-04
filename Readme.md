@@ -1,10 +1,10 @@
 # Menu
 - [HTTP Protocol API](#http-protocol-api)
-  - [General Information of Endpoints](##general-information-of-endpoints)
-  - [Return Codes of Errors](##return-codes-of-errors)
+  - [General Information of Endpoints](#general-information-of-endpoints)
+  - [Return Codes of Errors](#return-codes-of-errors)
   - [Methods with Puplic Data](##methods-with-puplic-data)
-    - [List of Puplic Pairs](###list-of-puplic-pairs)
-    - [Market History Data](###market-history-data)
+    - [List of Puplic Pairs](#list-of-puplic-pairs)
+    - [Market History Data](#market-history-data)
 - [WebSoket Protocol API](#websoket-protocol-api)
 
 # HTTP Protocol API
