@@ -2,8 +2,8 @@
 - [HTTP Protocol API](#http-protocol-api)
   - [General Information of Endpoints](#general-information-of-endpoints)
   - [Return Codes of Errors](#return-codes-of-errors)
-  - [Public Data Methods](#puplic-data-methods)
-    - [List of Puplic Pairs](#list-of-public-pairs)
+  - [Public Data Methods](#public-data-methods)
+    - [List of Public Pairs](#list-of-public-pairs)
     - [Specific Public Ticker Data](#specific-public-ticker-data)
     - [List of Order Book](#list-of-order-book)
     - [Market History Data](#market-history-data)
@@ -65,7 +65,7 @@
 
 All public methods requested with `GET` and consist only publick data.
 
-### List of Puplic Pairs
+### List of Public Pairs
 
   <details open>
   <summary>
@@ -115,7 +115,7 @@ minAmount | STRING |
 
 </details>
 
-### List of Puplic Tickers
+### List of Public Tickers
 
   <details open>
   <summary>
