@@ -1491,7 +1491,7 @@ price | STRING |
 
 </details>
 
-### Deals Subscribe Method
+### Depth Subscribe Method
   <details open>
   <summary>
   </summary>
