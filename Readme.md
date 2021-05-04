@@ -1,10 +1,15 @@
 # Menu
 - [HTTP Protocol API](#http-protocol-api)
+  - [General Information of Endpoints](##general-information-of-endpoints)
+  - [Return Codes of Errors](##return-codes-of-errors)
+  - [Methods with Puplic Data](##methods-with-puplic-data)
+    - [List of Puplic Pairs](###list-of-puplic-pairs)
+    - [Market History Data](###market-history-data)
 - [WebSoket Protocol API](#websoket-protocol-api)
 
 # HTTP Protocol API
 
-## General Information on Endpoints
+## General Information of Endpoints
   <details open>
   <summary>
   </summary>
@@ -14,7 +19,7 @@
 
     </details>
 
-## Return Codes
+## Return Codes of Errors
   <details open>
   <summary>
   </summary>
@@ -306,7 +311,8 @@ dealMoney | STRING |
 
 </details>
 
-### Market History Data ( Latest Deals on selected market )
+### Market History Data
+Latest Deals on selected market
 
 
   <details open>
