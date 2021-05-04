@@ -3,7 +3,7 @@
   - [General Information of Endpoints](#general-information-of-endpoints)
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Public Data Methods](#puplic-data-methods)
-    - [List of Puplic Pairs](#list-of-puplic-pairs)
+    - [List of Puplic Pairs](#list-of-public-pairs)
     - [Specific Public Ticker Data](#specific-public-ticker-data)
     - [List of Order Book](#list-of-order-book)
     - [Market History Data](#market-history-data)
