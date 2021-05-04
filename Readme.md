@@ -4,9 +4,38 @@
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Methods with Puplic Data](##methods-with-puplic-data)
     - [List of Puplic Pairs](#list-of-puplic-pairs)
+    - [Specific Public Ticker Data](#specific-public-ticker-data)
+    - [List of Order Book](#list-of-order-book)
     - [Market History Data](#market-history-data)
+    - [Public Pair List](#public-pair-list)
+    - [Depth List](#depth-list)
+    - [List of Graphic Data KLine](#list-of-graphic-data-kline)
 - [WebSoket Protocol API](#websoket-protocol-api)
+  - [Basic WS structure](#basic-ws-structure)
+  - [PING-PONG Method](#ping-pong-method)
+  - [System Time Method](#system-time-method)
+  - [KLine methods for Graph](# KLine-methods-for-graph)
+    - [KLine Query Method](#kline-query-method)
+    - [KLine Subscribe Method](#kline-subscribe-method)
+    - [KLine Unsubscribe Method](#kline-unsubscribe-method)
+  - [Market Price Methods](#market-price-methods)
+    - [Market Price Query Method](#market-price-query-method)
+    - [Market Price Subscribe Method](#market-price-subscribe-method)
+    - [Market Price Unsubscribe Method](#market-price-unsubscribe-method)
+  - [Market Status Methods](#market-status-methods)
+    - [Market Status Query Method](#market-status-query-methods)
+    - [Market Status Subscribe Method](#market-status-subscribe-methods)
+    - [Market Status Unsubscribe Method](#market-status-unsubscribe-methods)
+  - [Deals Methods](#deals-methods)
+    - [Deals Query Method](#deals-query-methods)
+    - [Deals Subscribe Method](#deals-subscribe-methods)
+    - [Deals Unsubscribe Method](#deals-unsubscribe-methods)
+  - [Depth Methods](#depth-methods)
+    - [Depth Query Method](#depth-query-methods)
+    - [Depth Subscribe Method](#depth-subscribe-methods)
+    - [Depth Unsubscribe Method](#depth-unsubscribe-methods)
 
+ 
 # HTTP Protocol API
 
 ## General Information of Endpoints
@@ -495,7 +524,7 @@ amount | STRING |2st parametr - in left side currency
 
 </details>
 
-### List of Graphic Data (KLine)
+### List of Graphic Data KLine
 
 
   <details open>
@@ -721,8 +750,7 @@ Error | NULL |
 </details>
 
 
-## KLine Methods (Graphic)
-
+# KLine methods for Graph
 
 
 ### KLine Query Method
@@ -1210,7 +1238,8 @@ state.unsubscribe
 ```
 </details>
 
-## Deals Methods (Latest Order List)
+## Deals Methods 
+Latest Order List
 
 
 ### Deals Query Method 
@@ -1388,7 +1417,8 @@ deals.unsubscribe
 </details>
 
 
-## Depth Methods (Order Book)
+## Depth Methods 
+Order Book
 
 
 ### Depth Query Method 
