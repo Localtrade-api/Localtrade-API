@@ -1709,9 +1709,8 @@ asset.query
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-market | STRING | Any market pair
-limit | NUMERIC | Limit of order quantity
-interval | STRING | Defoult: 1, No interval: 0, Step: 1
+asset list | STRING | Null: for all; Asset List: for choosed
+
 
 **Request:**
 ```javascript
@@ -1719,9 +1718,7 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"asset.query",
   "params":
     [
-      "ETH_BTC",  //market
-      1,          //limit
-      "0"         //interval
+      "BTC"
     ],
   "id":111
 }
@@ -1730,36 +1727,24 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
 
 **Response Parameters:**
 
-Name | Type | 
------------- | ------------ 
-type | STRING |
-id | NUMERIC |
-amount | STRING |
-price | STRING |
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Asset name
+available | NUMERIC | Amount without active orders
+freeze | STRING | active orders amount
+
 
 
 **Response:**
 ```javascript
+{
+  "BTC":
+    {
+      "available": "1.10000000",
+      "freeze": "9.90000000"
+    }
 }
-  "method":"asset.query",
-  "result": 
-   {
-      "asks": 
-       [
-          [
-            "8000.00", //price
-            "9.6250"   //amount
-          ]
-       ],
-      "bids": 
-       [
-         [
-           "7000.00",  //price
-           "0.1000"    //amount
-         ]
-       ]
-   "id": 111,
-}
+
 ```
 
 </details>
@@ -1778,9 +1763,7 @@ asset.subscribe
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-market | STRING | Any market pair
-limit | NUMERIC | Limit of order quantity
-interval | STRING | Defoult: 1, No interval: 0, Step: 1
+asset list | STRING | Null: for all; Asset List: for choosed
 
 **Request:**
 ```javascript
@@ -1788,9 +1771,8 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"asset.subscribe",
   "params":
     [
-      "ETH_BTC",    //market
-      1,            //limit
-      "0"           //interval
+      "BTC",
+      "CNY"
     ],
   "id":111
 }
@@ -1807,43 +1789,27 @@ asset.update
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-clean | BOOLEAN | FALSE: returned latest result, TRUE - no updates
-limit | NUMERIC | Return update from last result with limit
-market | STRING | Subscribed market
-id | NUMERIC | Request ID
-Type | String | Order type 
-Amount | String | order amount in 1st Ticker
-Price | String | order price in 1st Ticker
+market | STRING | Asset name
+available | NUMERIC | Amount without active orders
+freeze | STRING | active orders amount
 
 
 
 **Response:**
 ```javascript
-{
-  "method": "asset.update",
-  "params": 
-    [
-      true, 
-        {
-          "asks": 
-            [
-              [
-                "0.018519", //price
-                "120.6"     //amount
-              ]
-            ],
-          "bids": 
-            [
-              [
-                "0.01806",    //price
-                "90.31637262" //amount
-              ]
-            ]
-        }, 
-      "ETH_BTC"
-    ],
-  "id": null
-}
+[
+  {
+    "BTC: 
+      {
+        "available": "1.10000000",
+        "freeze": "9.90000000"
+      },
+    "CNY": 
+      {
+      }
+  }
+]
+
 ```
 
 </details>
@@ -1867,7 +1833,7 @@ asset.unsubscribe
 {
   "method":"asset.unsubscribe",
   "params":[],
-  "id":16
+  "id":111
 }
 ```
 </details>
@@ -1893,9 +1859,9 @@ order.query
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-market | STRING | Any market pair
-limit | NUMERIC | Limit of order quantity
-interval | STRING | Defoult: 1, No interval: 0, Step: 1
+market | STRING | For all pairs: ""; Special: Choosed Pair
+offset | INTEGER | NO | Default 0
+limit | INTEGER | Defoult: 1, No interval: 0, Step: 1
 
 **Request:**
 ```javascript
@@ -1903,47 +1869,81 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"order.query",
   "params":
     [
-      "ETH_BTC",  //market
-      1,          //limit
-      "0"         //interval
+      "",      //market
+      1,          //offset
+      30           //interval
     ],
-  "id":111
+  "id":6
 }
 ```
 
 
 **Response Parameters:**
 
-Name | Type | 
------------- | ------------ 
-type | STRING |
-id | NUMERIC |
-amount | STRING |
-price | STRING |
-
+Name | Type | Description |
+------------ | ------------ | ------------ 
+algorithm | INTEGER | Spot: 0; Margin: 1
+amount | NUMERIC | Order amount in first ticker of Pair (Asset)
+ctime | TIMESTAMP | Time of order placed
+deal_fee | STRING | user fee coefficient 
+deal_money | STRING | Order amount in second ticker of Pair (Market)
+deal_stock | STRING | Order amount in first ticker of Pair (Asset)
+id | INTEGER | Order ID
+left | STRING | Order left (if not traded = amount = deal_stock; if 0 - order finished)
+maker_fee | STRING | Fee of order placer
+market | STRING | Order Pair
+mtime | INTEGER | Matching time ( time of finishing)
+platform | INTEGER | 0 - Limit / Market; 1 - Stop-limit; 2 - OCO
+price | STRING | Order Price
+side | INTEGER | 1 - Sell (Ask) 2- Buy (Bid)
+source | STRING | Custom Parametr
+taker_fee | STRING |  Fee of order tacker
+type | INTEGER | 1 - Limit; 2 - Market
+user | INTEGER | - User ID
 
 **Response:**
 ```javascript
+
+{
+  id: 6,
+  params:
+    [
+      6,
+      "all",
+      0,
+      30
+    ],
+  result:
+    {
+      limit: 30
+      market_name: "all"
+      offset: 0
+      records:
+        {
+          algorithm: 0
+          amount: "1"
+          ctime: 1620561060.783
+          deal_fee: "0"
+          deal_money: "0"
+          deal_stock: "0"
+          id: 224280948
+          left: "1"
+          maker_fee: "0.002"
+          market: "ETH_EUR"
+          mtime: 0
+          platform: 0
+          price: "5000"
+          side: 1
+          source: ""
+          taker_fee: "0.002"
+          type: 1
+          user: 6
+        }
+      total: 1,
+    }
 }
-  "method":"order.query",
-  "result": 
-   {
-      "asks": 
-       [
-          [
-            "8000.00", //price
-            "9.6250"   //amount
-          ]
-       ],
-      "bids": 
-       [
-         [
-           "7000.00",  //price
-           "0.1000"    //amount
-         ]
-       ]
-   "id": 111,
-}
+  
+
 ```
 
 </details>
@@ -1965,58 +1965,100 @@ order.history
 Name | Type | Description |
 ------------ | ------------ | ------------ 
 market | STRING | Any market pair
+start_time | INTEGER | Unlimited: 0; Timestamp: custom
+end_time | INTEGER | Unlimited: 0; Timestamp: custom
+offset | INTEGER | NO | Default 0
 limit | NUMERIC | Limit of order quantity
-interval | STRING | Defoult: 1, No interval: 0, Step: 1
+side | STRING | Unlimited: 0, Sell: 1, Buy: 2
+
 
 **Request:**
 ```javascript
 {
-  "method":"order.history",
-  "params":
+  method: "order.history",
+  params: 
     [
-      "ETH_BTC",  //market
-      1,          //limit
-      "0"         //interval
+      "",
+      0,
+      0,
+      0,
+      30
     ],
-  "id":111
+  id: 10
 }
+
 ```
+
 
 
 **Response Parameters:**
 
-Name | Type | 
------------- | ------------ 
-type | STRING |
-id | NUMERIC |
-amount | STRING |
-price | STRING |
-
+Name | Type | Description |
+------------ | ------------ | ------------ 
+algorithm | INTEGER | Spot: 0; Margin: 1
+amount | NUMERIC | Order amount in first ticker of Pair (Asset)
+ctime | TIMESTAMP | Time of order placed
+deal_fee | STRING | user fee coefficient 
+deal_money | STRING | Order amount in second ticker of Pair (Market)
+deal_stock | STRING | Order amount in first ticker of Pair (Asset)
+id | INTEGER | Order ID
+left | STRING | Order left (if not traded = amount = deal_stock; if 0 - order finished)
+maker_fee | STRING | Fee of order placer
+market | STRING | Order Pair
+mtime | INTEGER | Matching time ( time of finishing)
+platform | INTEGER | 0 - Limit / Market; 1 - Stop-limit; 2 - OCO
+price | STRING | Order Price
+side | INTEGER | 1 - Sell (Ask) 2- Buy (Bid)
+source | STRING | Custom Parametr
+taker_fee | STRING |  Fee of order tacker
+type | INTEGER | 1 - Limit; 2 - Market
+user | INTEGER | - User ID
 
 **Response:**
 ```javascript
-}
-  "method":"order.history",
-  "result": 
-   {
-      "asks": 
-       [
-          [
-            "8000.00", //price
-            "9.6250"   //amount
-          ]
-       ],
-      "bids": 
-       [
-         [
-           "7000.00",  //price
-           "0.1000"    //amount
-         ]
-       ]
-   "id": 111,
+
+{
+  id: 6,
+  params:
+    [
+      "",
+      0,
+      0,
+      0,
+      30
+    ],
+  result:
+    {
+      limit: 30
+      start_time: 0
+      end_time: 0
+      market_name: ""
+      side: 0
+      offset: 0
+      records:
+        {
+          algorithm: 0
+          amount: "1"
+          ctime: 1620561060.783
+          deal_fee: "0"
+          deal_money: "0"
+          deal_stock: "0"
+          id: 224280948
+          left: "1"
+          maker_fee: "0.002"
+          market: "ETH_EUR"
+          mtime: 0
+          platform: 0
+          price: "5000"
+          side: 1
+          source: ""
+          taker_fee: "0.002"
+          type: 1
+          user: 6
+        }
+    }
 }
 ```
-
 </details>
 
 ### Order Subscribe Method
@@ -2033,9 +2075,9 @@ order.subscribe
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-market | STRING | Any market pair
-limit | NUMERIC | Limit of order quantity
-interval | STRING | Defoult: 1, No interval: 0, Step: 1
+market | STRING | For all pairs: ""; Special: Choosed Pair
+offset | INTEGER | NO | Default 0
+limit | INTEGER | Defoult: 1, No interval: 0, Step: 1
 
 **Request:**
 ```javascript
@@ -2043,64 +2085,68 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
   "method":"order.subscribe",
   "params":
     [
-      "ETH_BTC",    //market
-      1,            //limit
-      "0"           //interval
+      "BTC_USDT",      //market
     ],
-  "id":111
+  "id":6
 }
 ```
 
-**Response Parameters:**
+</details>
 
 ```
 order.update
 ```
 
-
 **Response Parameters:**
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-clean | BOOLEAN | FALSE: returned latest result, TRUE - no updates
-limit | NUMERIC | Return update from last result with limit
-market | STRING | Subscribed market
-id | NUMERIC | Request ID
-Type | String | Order type 
-Amount | String | order amount in 1st Ticker
-Price | String | order price in 1st Ticker
-
-
+algorithm | INTEGER | Spot: 0; Margin: 1
+amount | NUMERIC | Order amount in first ticker of Pair (Asset)
+ctime | TIMESTAMP | Time of order placed
+deal_fee | STRING | user fee coefficient 
+deal_money | STRING | Order amount in second ticker of Pair (Market)
+deal_stock | STRING | Order amount in first ticker of Pair (Asset)
+id | INTEGER | Order ID
+left | STRING | Order left (if not traded = amount = deal_stock; if 0 - order finished)
+maker_fee | STRING | Fee of order placer
+market | STRING | Order Pair
+mtime | INTEGER | Matching time ( time of finishing)
+platform | INTEGER | 0 - Limit / Market; 1 - Stop-limit; 2 - OCO
+price | STRING | Order Price
+side | INTEGER | 1 - Sell (Ask) 2- Buy (Bid)
+source | STRING | Custom Parametr
+taker_fee | STRING |  Fee of order tacker
+type | INTEGER | 1 - Limit; 2 - Market
+user | INTEGER | - User ID
 
 **Response:**
 ```javascript
-{
-  "method": "order.update",
-  "params": 
-    [
-      true, 
+result:
+    {
         {
-          "asks": 
-            [
-              [
-                "0.018519", //price
-                "120.6"     //amount
-              ]
-            ],
-          "bids": 
-            [
-              [
-                "0.01806",    //price
-                "90.31637262" //amount
-              ]
-            ]
-        }, 
-      "ETH_BTC"
-    ],
-  "id": null
-}
-```
+          algorithm: 0
+          amount: "1"
+          ctime: 1620561060.783
+          deal_fee: "0"
+          deal_money: "0"
+          deal_stock: "0"
+          id: 224280948
+          left: "1"
+          maker_fee: "0.002"
+          market: "ETH_EUR"
+          mtime: 0
+          platform: 0
+          price: "5000"
+          side: 1
+          source: ""
+          taker_fee: "0.002"
+          type: 1
+          user: 6
+        }
+    }
 
+```
 </details>
 
 
