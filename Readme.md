@@ -14,6 +14,7 @@
   - [Basic WS structure](#basic-ws-structure)
   - [PING-PONG Method](#ping-pong-method)
   - [System Time Method](#system-time-method)
+  - [Web-Soket Authentication](#web-soket-authentication)
   - [KLine methods for Graph](#kline-methods-for-graph)
     - [KLine Query Method](#kline-query-method)
     - [KLine Subscribe Method](#kline-subscribe-method)
@@ -768,6 +769,69 @@ Error | NULL |
 
 </details>
 
+
+## Web-Soket Authentication
+  <details open>
+  <summary>
+  </summary>
+
+
+**Request:**
+
+**Method**
+```
+server.auth
+```
+
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+Token | STRING | Personal user token ( Receive in API Manager on web-site /user/api ) 
+Source | STRING | Defoult: web; Custom configuration for understendong source of web-soket info
+
+
+
+**Request**
+```javascript
+{
+  "method":"server.auth",
+  "params":
+    [
+      "$2y$10$J3gXRK...ZOH2yGXTlOcp9iBUq"
+      "web"
+    ],
+  "id":0
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+Status | STRING | Success - auth compleated
+
+
+
+
+**Response:**
+```javascript
+{
+  id: 2,
+  params: 
+    [
+    ], 
+  result: 
+    {
+      status: "success"
+    },
+  error: null
+}
+```
+
+</details>
 
 # KLine methods for Graph
 
