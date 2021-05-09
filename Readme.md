@@ -620,21 +620,21 @@ Repeated subscription will be cancelled for the same data type.
 
 **System Methods**
 
-* PING-PONG Method - used to test the health of sockets
-* System Time Method - used to synchronize with socket service times
-* Authentication - used to subscribe on private methods
+* [PING-PONG Method](#ping-pong-method) - used to test the health of sockets
+* [System Time Method](#system-time-method) - used to synchronize with socket service times
+* [Web-Soket Authentication](#web-soket-authentication) - used to subscribe on private methods
 
 **Public Methods**
 
-* KLine methods for Graph - used to get data on charts (the change comes after a trade and chart data change)
-* Market Price Methods - used to get information about the market price for a specific pair (the change comes after a trade and a change in the market price)
-* Market Status Methods - used to get information about market activity for a specific pair (the change comes after a trade and a change in market parameters)
-* Deals Methods - used to get information about the last trade in the market (the change comes after the execution of a trade)
-* Depth Methods - used to get information on order books and monitor their changes in the market (the change comes after placing, canceling, executing, changing an order)
+* [KLine methods for Graph](#kline-methods-for-graph) - used to get data on charts (the change comes after a trade and chart data change)
+* [Market Price Methods](#market-price-methods) - used to get information about the market price for a specific pair (the change comes after a trade and a change in the market price)
+* [Market Price Methods](#market-price-methods) - used to get information about market activity for a specific pair (the change comes after a trade and a change in market parameters)
+* [Deals Methods](#deals-methods) - used to get information about the last trade in the market (the change comes after the execution of a trade)
+* [Depth Methods](#depth-methods) - used to get information on order books and monitor their changes in the market (the change comes after placing, canceling, executing, changing an order)
 
 **Private Methods**
 
-* Trade Balances Method - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
+* Trade User Balances Method - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
 * Active Orders and Orders History - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
 
 
@@ -789,7 +789,7 @@ server.auth
 Name | Type | Description |
 ------------ | ------------ | ------------ 
 Token | STRING | Personal user token ( Receive in API Manager on web-site /user/api ) 
-Source | STRING | Defoult: web; Custom configuration for understendong source of web-soket info
+Source | STRING | Defoult: web; Max: 30 bytes; Custom configuration for understendong source of web-soket info
 
 
 
@@ -1500,7 +1500,6 @@ deals.unsubscribe
 
 
 ## Depth Methods 
-Order Book
 
 
 ### Depth Query Method 
@@ -1681,3 +1680,185 @@ depth.unsubscribe
 ```
 </details>
 
+
+## Trade User Balances Method 
+
+
+
+### Asset Query Method 
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+depth.query
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"depth.query",
+  "params":
+    [
+      "ETH_BTC",  //market
+      1,          //limit
+      "0"         //interval
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+}
+  "method":"depth.query",
+  "result": 
+   {
+      "asks": 
+       [
+          [
+            "8000.00", //price
+            "9.6250"   //amount
+          ]
+       ],
+      "bids": 
+       [
+         [
+           "7000.00",  //price
+           "0.1000"    //amount
+         ]
+       ]
+   "id": 111,
+}
+```
+
+</details>
+
+### Depth Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+depth.subscribe
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"depth.subscribe",
+  "params":
+    [
+      "ETH_BTC",    //market
+      1,            //limit
+      "0"           //interval
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+```
+depth.update
+```
+
+
+**Response Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+clean | BOOLEAN | FALSE: returned latest result, TRUE - no updates
+limit | NUMERIC | Return update from last result with limit
+market | STRING | Subscribed market
+id | NUMERIC | Request ID
+Type | String | Order type 
+Amount | String | order amount in 1st Ticker
+Price | String | order price in 1st Ticker
+
+
+
+**Response:**
+```javascript
+{
+  "method": "depth.update",
+  "params": 
+    [
+      true, 
+        {
+          "asks": 
+            [
+              [
+                "0.018519", //price
+                "120.6"     //amount
+              ]
+            ],
+          "bids": 
+            [
+              [
+                "0.01806",    //price
+                "90.31637262" //amount
+              ]
+            ]
+        }, 
+      "ETH_BTC"
+    ],
+  "id": null
+}
+```
+
+</details>
+
+
+### Depth Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+depth.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"depth.unsubscribe",
+  "params":[],
+  "id":16
+}
+```
+</details>
