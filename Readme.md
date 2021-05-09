@@ -644,7 +644,7 @@ Repeated subscription will be cancelled for the same data type.
 **Private Methods**
 
 * [Trade Users Balances Methods](#trade-user-balances-methods) - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
-* [Active Orders and Orders History](#depth-methods) - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
+* [Active Orders and Orders History Methods](#active-orders-and-orders-history-methods) - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
 
 
 
