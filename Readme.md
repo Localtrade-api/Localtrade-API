@@ -35,6 +35,15 @@
     - [Depth Query Method](#depth-query-method)
     - [Depth Subscribe Method](#depth-subscribe-method)
     - [Depth Unsubscribe Method](#depth-unsubscribe-method)
+  - [Trade Users Balances Methods](#trade-users-balances-methods)
+    - [Asset Query Method](#asset-query-method)
+    - [Asset Subscribe Method](#asset-subscribe-method)
+    - [Asset Unsubscribe Method](#asset-unsubscribe-method)
+  - [Active Orders and Orders History](#depth-methods)
+    - [Order Query Method](#order-query-method)
+    - [Order History Method](#order-history-method)
+    - [Order Subscribe Method](#order-subscribe-method)
+    - [Order Unsubscribe Method](#order-unsubscribe-method) 
 
  
 # HTTP Protocol API
@@ -634,8 +643,9 @@ Repeated subscription will be cancelled for the same data type.
 
 **Private Methods**
 
-* Trade User Balances Method - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
-* Active Orders and Orders History - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
+* [Trade Users Balances Methods](#trade-users-balances-methods) - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
+* [Active Orders and Orders History](#depth-methods) - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
+
 
 
 ## Basic WS structure
@@ -1693,7 +1703,7 @@ depth.unsubscribe
 
 **Method**
 ```
-depth.query
+asset.query
 ```
 
 **Request Parameters:**
@@ -1707,7 +1717,7 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
 **Request:**
 ```javascript
 {
-  "method":"depth.query",
+  "method":"asset.query",
   "params":
     [
       "ETH_BTC",  //market
@@ -1732,7 +1742,7 @@ price | STRING |
 **Response:**
 ```javascript
 }
-  "method":"depth.query",
+  "method":"asset.query",
   "result": 
    {
       "asks": 
@@ -1755,14 +1765,14 @@ price | STRING |
 
 </details>
 
-### Depth Subscribe Method
+### Asset Subscribe Method
   <details open>
   <summary>
   </summary>
 
 **Method**
 ```
-depth.subscribe
+asset.subscribe
 ```
 
 **Request Parameters:**
@@ -1776,7 +1786,7 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
 **Request:**
 ```javascript
 {
-  "method":"depth.subscribe",
+  "method":"asset.subscribe",
   "params":
     [
       "ETH_BTC",    //market
@@ -1790,7 +1800,7 @@ interval | STRING | Defoult: 1, No interval: 0, Step: 1
 **Response Parameters:**
 
 ```
-depth.update
+asset.update
 ```
 
 
@@ -1811,7 +1821,7 @@ Price | String | order price in 1st Ticker
 **Response:**
 ```javascript
 {
-  "method": "depth.update",
+  "method": "asset.update",
   "params": 
     [
       true, 
@@ -1840,7 +1850,7 @@ Price | String | order price in 1st Ticker
 </details>
 
 
-### Depth Unsubscribe Method
+### Asset Unsubscribe Method
   <details open>
   <summary>
   </summary>
@@ -1850,13 +1860,268 @@ Price | String | order price in 1st Ticker
 
   
 ```
-depth.unsubscribe
+asset.unsubscribe
 ```
 
 **Request**
 ```javascript
 {
-  "method":"depth.unsubscribe",
+  "method":"asset.unsubscribe",
+  "params":[],
+  "id":16
+}
+```
+</details>
+
+
+
+## Active Orders and Orders History Methods 
+
+
+
+### Order Query Method 
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+order.query
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"order.query",
+  "params":
+    [
+      "ETH_BTC",  //market
+      1,          //limit
+      "0"         //interval
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+}
+  "method":"order.query",
+  "result": 
+   {
+      "asks": 
+       [
+          [
+            "8000.00", //price
+            "9.6250"   //amount
+          ]
+       ],
+      "bids": 
+       [
+         [
+           "7000.00",  //price
+           "0.1000"    //amount
+         ]
+       ]
+   "id": 111,
+}
+```
+
+</details>
+
+
+### Order History Method 
+  <details open>
+  <summary>
+  </summary>
+
+
+**Method**
+```
+order.history
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"order.history",
+  "params":
+    [
+      "ETH_BTC",  //market
+      1,          //limit
+      "0"         //interval
+    ],
+  "id":111
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | 
+------------ | ------------ 
+type | STRING |
+id | NUMERIC |
+amount | STRING |
+price | STRING |
+
+
+**Response:**
+```javascript
+}
+  "method":"order.history",
+  "result": 
+   {
+      "asks": 
+       [
+          [
+            "8000.00", //price
+            "9.6250"   //amount
+          ]
+       ],
+      "bids": 
+       [
+         [
+           "7000.00",  //price
+           "0.1000"    //amount
+         ]
+       ]
+   "id": 111,
+}
+```
+
+</details>
+
+### Order Subscribe Method
+  <details open>
+  <summary>
+  </summary>
+
+**Method**
+```
+order.subscribe
+```
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+market | STRING | Any market pair
+limit | NUMERIC | Limit of order quantity
+interval | STRING | Defoult: 1, No interval: 0, Step: 1
+
+**Request:**
+```javascript
+{
+  "method":"order.subscribe",
+  "params":
+    [
+      "ETH_BTC",    //market
+      1,            //limit
+      "0"           //interval
+    ],
+  "id":111
+}
+```
+
+**Response Parameters:**
+
+```
+order.update
+```
+
+
+**Response Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+clean | BOOLEAN | FALSE: returned latest result, TRUE - no updates
+limit | NUMERIC | Return update from last result with limit
+market | STRING | Subscribed market
+id | NUMERIC | Request ID
+Type | String | Order type 
+Amount | String | order amount in 1st Ticker
+Price | String | order price in 1st Ticker
+
+
+
+**Response:**
+```javascript
+{
+  "method": "order.update",
+  "params": 
+    [
+      true, 
+        {
+          "asks": 
+            [
+              [
+                "0.018519", //price
+                "120.6"     //amount
+              ]
+            ],
+          "bids": 
+            [
+              [
+                "0.01806",    //price
+                "90.31637262" //amount
+              ]
+            ]
+        }, 
+      "ETH_BTC"
+    ],
+  "id": null
+}
+```
+
+</details>
+
+
+### Order Unsubscribe Method
+  <details open>
+  <summary>
+  </summary>
+  
+  
+**Method**
+
+  
+```
+order.unsubscribe
+```
+
+**Request**
+```javascript
+{
+  "method":"order.unsubscribe",
   "params":[],
   "id":16
 }
