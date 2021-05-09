@@ -35,11 +35,11 @@
     - [Depth Query Method](#depth-query-method)
     - [Depth Subscribe Method](#depth-subscribe-method)
     - [Depth Unsubscribe Method](#depth-unsubscribe-method)
-  - [Trade Users Balances Methods](#trade-users-balances-methods)
+  - [Trade User Balances Methods](#trade-user-balances-methods)
     - [Asset Query Method](#asset-query-method)
     - [Asset Subscribe Method](#asset-subscribe-method)
     - [Asset Unsubscribe Method](#asset-unsubscribe-method)
-  - [Active Orders and Orders History](#depth-methods)
+  - [Active Orders and Orders History Methods](#active-orders-and-orders-history-methods)
     - [Order Query Method](#order-query-method)
     - [Order History Method](#order-history-method)
     - [Order Subscribe Method](#order-subscribe-method)
@@ -643,7 +643,7 @@ Repeated subscription will be cancelled for the same data type.
 
 **Private Methods**
 
-* [Trade Users Balances Methods](#trade-users-balances-methods) - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
+* [Trade Users Balances Methods](#trade-user-balances-methods) - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
 * [Active Orders and Orders History](#depth-methods) - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
 
 
@@ -1691,8 +1691,7 @@ depth.unsubscribe
 </details>
 
 
-## Trade User Balances Method 
-
+## Trade User Balances Methods 
 
 
 ### Asset Query Method 
