@@ -617,18 +617,24 @@ market | STRING |
 The API is based on JSON RPC of Websocket protocol. 
 Repeated subscription will be cancelled for the same data type.
 
-**Public Methods**
+**System Methods**
 
 * PING-PONG Method - used to test the health of sockets
 * System Time Method - used to synchronize with socket service times
-* KLine methods for Graph - used to get data on charts (change comes after a trade and chart data change)
+* Authentication - used to subscribe on private methods
+
+**Public Methods**
+
+* KLine methods for Graph - used to get data on charts (the change comes after a trade and chart data change)
 * Market Price Methods - used to get information about the market price for a specific pair (the change comes after a trade and a change in the market price)
 * Market Status Methods - used to get information about market activity for a specific pair (the change comes after a trade and a change in market parameters)
-* Deals Methods - used to get information about the last trade in the market (change comes after the execution of a trade)
-* Depth Methods - used to get information on order books and monitor their changes in the market (change comes after placing, canceling, executing, changing an order)
+* Deals Methods - used to get information about the last trade in the market (the change comes after the execution of a trade)
+* Depth Methods - used to get information on order books and monitor their changes in the market (the change comes after placing, canceling, executing, changing an order)
 
 **Private Methods**
 
+* Trade Balances Method - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
+* Active Orders and Orders History - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
 
 
 ## Basic WS structure
