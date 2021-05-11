@@ -3,7 +3,6 @@
 - [HTTP Protocol API](#http-protocol-api) 
 
   - [HTTP Authorization](#http-authorization)
-
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Public Data Methods](#public-data-methods)
     - [List of Public Pairs](#list-of-public-pairs)
@@ -28,7 +27,6 @@
 - [WebSoket Protocol API](#websoket-protocol-api)
 
   - [Web-Soket Authorization](#web-soket-authorization)
-
   - [Basic WS structure](#basic-ws-structure)
   - [PING-PONG Method](#ping-pong-method)
   - [System Time Method](#system-time-method)
@@ -1837,6 +1835,8 @@ depth.unsubscribe
 
 ## Trade User Balances Methods 
 
+Need to authorize first [Web-Soket Authorization](#web-soket-authorization)
+
 
 ### Asset Query Method 
   <details open>
@@ -1986,6 +1986,7 @@ asset.unsubscribe
 
 ## Active Orders and Orders History Methods 
 
+Need to authorize first [Web-Soket Authorization](#web-soket-authorization)
 
 
 ### Order Query Method 
