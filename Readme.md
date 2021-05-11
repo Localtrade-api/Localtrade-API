@@ -4,7 +4,6 @@
 
 - [HTTP Protocol API](#http-protocol-api) 
 
-  - [General Information of Endpoints](#general-information-of-endpoints)
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Public Data Methods](#public-data-methods)
     - [List of Public Pairs](#list-of-public-pairs)
@@ -143,7 +142,6 @@ public function callApi()
  
 # HTTP Protocol API
 
-## General Information of Endpoints
   <details open>
   <summary>
   </summary>
@@ -162,6 +160,8 @@ This method provides information via `GET`. The response will return all the inf
 - [List of Graphic Data KLine](#list-of-graphic-data-kline) - returns data on charts - is used to create personal charts, control market trends.
 
 
+
+
 **Public Methods Via `POST`:**
 
 First of all to use `POST` methods check how to made [Authorization](#authorization)
@@ -176,7 +176,9 @@ Use next methods via `POST` and obtain full information:
 - [List of Graphic Data KLine](#list-of-graphic-data-kline)
 
 
-** Private Methods:**
+
+
+**Private Methods:**
 
 All of this methods can be use only with `POST`. Before using check [Authorization](#authorization)
 
@@ -929,7 +931,7 @@ server.auth
 
 Name | Type | Description |
 ------------ | ------------ | ------------ 
-Token | STRING | Personal user token ( Receive in API Manager on web-site /user/api ) 
+Token | STRING | Personal user token ( check  [Authorization](#authorization) )
 Source | STRING | Defoult: web; Max: 30 bytes; Custom configuration for understendong source of web-soket info
 
 
