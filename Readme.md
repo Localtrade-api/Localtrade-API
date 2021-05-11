@@ -1,5 +1,9 @@
 # Menu
-- [HTTP Protocol API](#http-protocol-api)
+
+- [Authorization](#authorization)
+
+- [HTTP Protocol API](#http-protocol-api) 
+
   - [General Information of Endpoints](#general-information-of-endpoints)
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Public Data Methods](#public-data-methods)
@@ -10,23 +14,41 @@
     - [Public Pair List](#public-pair-list)
     - [Depth List](#depth-list)
     - [List of Graphic Data KLine](#list-of-graphic-data-kline)
+ 
+  - [Private Data Methods](#public-data-methods)
+    - [List of Public Pairs](#list-of-public-pairs)
+    - [Specific Public Ticker Data](#specific-public-ticker-data)
+    - [List of Order Book](#list-of-order-book)
+    - [Market History Data](#market-history-data)
+    - [Public Pair List](#public-pair-list)
+    - [Depth List](#depth-list)
+    - [List of Graphic Data KLine](#list-of-graphic-data-kline)
+
+
+
 - [WebSoket Protocol API](#websoket-protocol-api)
+
+
   - [Basic WS structure](#basic-ws-structure)
   - [PING-PONG Method](#ping-pong-method)
   - [System Time Method](#system-time-method)
   - [Web-Soket Authentication](#web-soket-authentication)
+
   - [KLine methods for Graph](#kline-methods-for-graph)
     - [KLine Query Method](#kline-query-method)
     - [KLine Subscribe Method](#kline-subscribe-method)
     - [KLine Unsubscribe Method](#kline-unsubscribe-method)
+ 
   - [Market Price Methods](#market-price-methods)
     - [Market Price Query Method](#market-price-query-method)
     - [Market Price Subscribe Method](#market-price-subscribe-method)
     - [Market Price Unsubscribe Method](#market-price-unsubscribe-method)
+
   - [Market Status Methods](#market-status-methods)
     - [Market Status Query Method](#market-status-query-method)
     - [Market Status Subscribe Method](#market-status-subscribe-method)
     - [Market Status Unsubscribe Method](#market-status-unsubscribe-method)
+
   - [Deals Methods](#deals-methods)
     - [Deals Query Method](#deals-query-method)
     - [Deals Subscribe Method](#deals-subscribe-method)
@@ -35,15 +57,88 @@
     - [Depth Query Method](#depth-query-method)
     - [Depth Subscribe Method](#depth-subscribe-method)
     - [Depth Unsubscribe Method](#depth-unsubscribe-method)
+
   - [Trade User Balances Methods](#trade-user-balances-methods)
     - [Asset Query Method](#asset-query-method)
     - [Asset Subscribe Method](#asset-subscribe-method)
     - [Asset Unsubscribe Method](#asset-unsubscribe-method)
+
   - [Active Orders and Orders History Methods](#active-orders-and-orders-history-methods)
     - [Order Query Method](#order-query-method)
     - [Order History Method](#order-history-method)
     - [Order Subscribe Method](#order-subscribe-method)
     - [Order Unsubscribe Method](#order-unsubscribe-method) 
+
+
+# Authorization
+
+
+Follow 5 simple steps to use private methods:
+
+* Before authorization, you need to log in to https://localtrade.cc/login or register if the user has not yet been created https://localtrade.cc/register.
+* After authorization, you need to go to https://localtrade.cc/user/security-main and activate 2-factor authentication.
+* After enabling 2-factor authentication, you need to go to the API manager to create API keys that will be required for authorization in the API https://localtrade.cc/user/api.
+* To create keys, click Add Key and the 1st package of keys for connecting the API will be created. Key packages can be up to 5 pieces.
+* Before using the apkey, they must be activated - for this, on the created package, click on the switch which will switch them to the "Active" state.
+
+
+Each package will contain 3 keys:
+apiKey - public key
+apiSecret - private key
+weKey - key for websockets
+
+**Important!**
+
+  `nonce` - used as a parameter to protect against DDoS attacks and an excessive number of API requests. This parameter is most often used through a timestamp with a minimum step per second. Each next request must be greater than the next one in the `nonce` parameters.
+
+Let's look at a few examples of authorization in different development languages:
+
+**PHP**
+  <details  open>
+  <summary>
+  </summary>
+  
+  
+```php
+use GuzzleHttp\Client;
+
+public function callApi()
+{
+    $apiKey = '';
+    $apiSecret = '';
+		$request = ''; // /api/v1/order/new
+    $baseUrl = 'https://api.localtrade.cc';
+
+    $data = [
+        'request' => $request,
+        'nonce' => (string)\Carbon\Carbon::now()->timestamp,
+    ];
+
+    $completeUrl = $baseUrl . $request;
+    $dataJsonStr = json_encode($data, JSON_UNESCAPED_SLASHES);
+    $payload = base64_encode($dataJsonStr);
+    $signature = hash_hmac('sha512', $payload, $apiSecret);
+
+    $client = new Client();
+    try {
+        $res = $client->post($completeUrl, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'X-TXC-APIKEY' => $apiKey,
+                'X-TXC-PAYLOAD' => $payload,
+                'X-TXC-SIGNATURE' => $signature
+            ],
+            'body' => json_encode($data, JSON_UNESCAPED_SLASHES)
+        ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()]);
+    }
+
+    return response()->json(['result' => json_decode($res->getBody()->getContents())]);
+}
+```
+  </details>
+
 
  
 # HTTP Protocol API
@@ -53,10 +148,44 @@
   <summary>
   </summary>
 
-* All public methods requested with `GET` and consist only publick data. 
-* To receive all data and work with private data, use `POST` with API keys (Read Authorization)
+**Public Methods:**
 
-    </details>
+This method provides information via `GET`. The response will return all the information that was posted by the platform. To obtain private information, use the same methods via `POST` as an authorized user using api keys.
+
+
+- [List of Public Pairs](#list-of-public-pairs) - returns the history of trades for all public pairs - used for tracking to compare prices in the market, control positions for many markets at once.
+- [Specific Public Ticker Data](#specific-public-ticker-data) - returns the trading history for a specific selected pair - used to track a specific pair and track its key characteristics.
+- [List of Order Book](#list-of-order-book) - Returns all positions for a specific market for all orders of the order book in the selected direction with pagination - used for full monitoring of the order book status, its changes, evaluation of its placed orders and their priority.
+- [Market History Data](#market-history-data) - returns the history of trading on the market - used to track your own or someone else's executed orders, trading dynamics, control over buying / selling.
+- [Public Pair List](#public-pair-list) - returns all public pairs - used to track new pairs, monitor pairs for MM.
+- [Depth List](#depth-list) - returns data on the order book with pagination for a specific pair - used to track the depth of the order book, control placed orders, monitor the market in light mode.
+- [List of Graphic Data KLine](#list-of-graphic-data-kline) - returns data on charts - is used to create personal charts, control market trends.
+
+
+**Public Methods Via `POST`:**
+
+First of all to use `POST` methods check how to made [Authorization](#authorization)
+Use next methods via `POST` and obtain full information:
+
+- [List of Public Pairs](#list-of-public-pairs)
+- [Specific Public Ticker Data](#specific-public-ticker-data)
+- [List of Order Book](#list-of-order-book)
+- [Market History Data](#market-history-data)
+- [Public Pair List](#public-pair-list)
+- [Depth List](#depth-list)
+- [List of Graphic Data KLine](#list-of-graphic-data-kline)
+
+
+** Private Methods:**
+
+All of this methods can be use only with `POST`. Before using check [Authorization](#authorization)
+
+[List of Public Pairs](#list-of-public-pairs) 
+
+
+</details>
+
+
 
 ## Return Codes of Errors
   <details open>
@@ -69,6 +198,8 @@
 * HTTP `404` return code is used when the request made with undefined data and service can Not Found data for response.
 
   </details>
+
+
 
 
 ## Public Data Methods
