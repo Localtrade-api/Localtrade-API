@@ -1,8 +1,8 @@
 # Menu
 
-- [Authorization](#authorization)
-
 - [HTTP Protocol API](#http-protocol-api) 
+
+  - [HTTP Authorization](#http-authorization)
 
   - [Return Codes of Errors](#return-codes-of-errors)
   - [Public Data Methods](#public-data-methods)
@@ -27,11 +27,12 @@
 
 - [WebSoket Protocol API](#websoket-protocol-api)
 
+  - [Web-Soket Authorization](#web-soket-authorization)
 
   - [Basic WS structure](#basic-ws-structure)
   - [PING-PONG Method](#ping-pong-method)
   - [System Time Method](#system-time-method)
-  - [Web-Soket Authentication](#web-soket-authentication)
+
 
   - [KLine methods for Graph](#kline-methods-for-graph)
     - [KLine Query Method](#kline-query-method)
@@ -67,9 +68,58 @@
     - [Order History Method](#order-history-method)
     - [Order Subscribe Method](#order-subscribe-method)
     - [Order Unsubscribe Method](#order-unsubscribe-method) 
+	
+	
+ 
+# HTTP Protocol API
+
+  <details open>
+  <summary>
+  </summary>
+
+**Public Methods:**
+
+This method provides information via `GET`. The response will return all the information that was posted by the platform. To obtain private information, use the same methods via `POST` as an authorized user using api keys.
 
 
-# Authorization
+- [List of Public Pairs](#list-of-public-pairs) - returns the history of trades for all public pairs - used for tracking to compare prices in the market, control positions for many markets at once.
+- [Specific Public Ticker Data](#specific-public-ticker-data) - returns the trading history for a specific selected pair - used to track a specific pair and track its key characteristics.
+- [List of Order Book](#list-of-order-book) - Returns all positions for a specific market for all orders of the order book in the selected direction with pagination - used for full monitoring of the order book status, its changes, evaluation of its placed orders and their priority.
+- [Market History Data](#market-history-data) - returns the history of trading on the market - used to track your own or someone else's executed orders, trading dynamics, control over buying / selling.
+- [Public Pair List](#public-pair-list) - returns all public pairs - used to track new pairs, monitor pairs for MM.
+- [Depth List](#depth-list) - returns data on the order book with pagination for a specific pair - used to track the depth of the order book, control placed orders, monitor the market in light mode.
+- [List of Graphic Data KLine](#list-of-graphic-data-kline) - returns data on charts - is used to create personal charts, control market trends.
+
+
+
+
+**Public Methods Via `POST`:**
+
+First of all to use `POST` methods check how to made [Authorization](#authorization)
+Use next methods via `POST` and obtain full information:
+
+- [List of Public Pairs](#list-of-public-pairs)
+- [Specific Public Ticker Data](#specific-public-ticker-data)
+- [List of Order Book](#list-of-order-book)
+- [Market History Data](#market-history-data)
+- [Public Pair List](#public-pair-list)
+- [Depth List](#depth-list)
+- [List of Graphic Data KLine](#list-of-graphic-data-kline)
+
+
+
+
+**Private Methods:**
+
+All of this methods can be use only with `POST`. Before using check [Authorization](#authorization)
+
+[List of Public Pairs](#list-of-public-pairs) 
+
+
+</details>
+
+
+## HTTP Authorization
 
 
 Follow 5 simple steps to use private methods:
@@ -86,9 +136,14 @@ apiKey - public key
 apiSecret - private key
 weKey - key for websockets
 
+
+
+
 **Important!**
 
   `nonce` - used as a parameter to protect against DDoS attacks and an excessive number of API requests. This parameter is most often used through a timestamp with a minimum step per second. Each next request must be greater than the next one in the `nonce` parameters.
+
+
 
 Let's look at a few examples of authorization in different development languages:
 
@@ -139,53 +194,6 @@ public function callApi()
   </details>
 
 
- 
-# HTTP Protocol API
-
-  <details open>
-  <summary>
-  </summary>
-
-**Public Methods:**
-
-This method provides information via `GET`. The response will return all the information that was posted by the platform. To obtain private information, use the same methods via `POST` as an authorized user using api keys.
-
-
-- [List of Public Pairs](#list-of-public-pairs) - returns the history of trades for all public pairs - used for tracking to compare prices in the market, control positions for many markets at once.
-- [Specific Public Ticker Data](#specific-public-ticker-data) - returns the trading history for a specific selected pair - used to track a specific pair and track its key characteristics.
-- [List of Order Book](#list-of-order-book) - Returns all positions for a specific market for all orders of the order book in the selected direction with pagination - used for full monitoring of the order book status, its changes, evaluation of its placed orders and their priority.
-- [Market History Data](#market-history-data) - returns the history of trading on the market - used to track your own or someone else's executed orders, trading dynamics, control over buying / selling.
-- [Public Pair List](#public-pair-list) - returns all public pairs - used to track new pairs, monitor pairs for MM.
-- [Depth List](#depth-list) - returns data on the order book with pagination for a specific pair - used to track the depth of the order book, control placed orders, monitor the market in light mode.
-- [List of Graphic Data KLine](#list-of-graphic-data-kline) - returns data on charts - is used to create personal charts, control market trends.
-
-
-
-
-**Public Methods Via `POST`:**
-
-First of all to use `POST` methods check how to made [Authorization](#authorization)
-Use next methods via `POST` and obtain full information:
-
-- [List of Public Pairs](#list-of-public-pairs)
-- [Specific Public Ticker Data](#specific-public-ticker-data)
-- [List of Order Book](#list-of-order-book)
-- [Market History Data](#market-history-data)
-- [Public Pair List](#public-pair-list)
-- [Depth List](#depth-list)
-- [List of Graphic Data KLine](#list-of-graphic-data-kline)
-
-
-
-
-**Private Methods:**
-
-All of this methods can be use only with `POST`. Before using check [Authorization](#authorization)
-
-[List of Public Pairs](#list-of-public-pairs) 
-
-
-</details>
 
 
 
@@ -193,6 +201,7 @@ All of this methods can be use only with `POST`. Before using check [Authorizati
   <details open>
   <summary>
   </summary>
+	
 
 * HTTP `200` return code is used when the Succesful responce;
 * HTTP `401` return code is used when the request made by Unauthorized user;
@@ -781,6 +790,70 @@ Repeated subscription will be cancelled for the same data type.
 
 
 
+## Web-Soket Authorization
+  <details open>
+  <summary>
+  </summary>
+
+
+**Request:**
+
+**Method**
+```
+server.auth
+```
+
+
+**Request Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+Token | STRING | Personal user token ( check  [HTTP Authorization](#http-authorization) )
+Source | STRING | Defoult: web; Max: 30 bytes; Custom configuration for understendong source of web-soket info
+
+
+
+**Request**
+```javascript
+{
+  "method":"server.auth",
+  "params":
+    [
+      "$2y$10$J3gXRK...ZOH2yGXTlOcp9iBUq"
+      "web"
+    ],
+  "id":0
+}
+```
+
+
+**Response Parameters:**
+
+Name | Type | Description |
+------------ | ------------ | ------------ 
+Status | STRING | Success - auth compleated
+
+
+
+
+**Response:**
+```javascript
+{
+  id: 2,
+  params: 
+    [
+    ], 
+  result: 
+    {
+      status: "success"
+    },
+  error: null
+}
+```
+
+</details>
+
+
 ## Basic WS structure
 
 **Request**
@@ -913,68 +986,6 @@ Error | NULL |
 </details>
 
 
-## Web-Soket Authentication
-  <details open>
-  <summary>
-  </summary>
-
-
-**Request:**
-
-**Method**
-```
-server.auth
-```
-
-
-**Request Parameters:**
-
-Name | Type | Description |
------------- | ------------ | ------------ 
-Token | STRING | Personal user token ( check  [Authorization](#authorization) )
-Source | STRING | Defoult: web; Max: 30 bytes; Custom configuration for understendong source of web-soket info
-
-
-
-**Request**
-```javascript
-{
-  "method":"server.auth",
-  "params":
-    [
-      "$2y$10$J3gXRK...ZOH2yGXTlOcp9iBUq"
-      "web"
-    ],
-  "id":0
-}
-```
-
-
-**Response Parameters:**
-
-Name | Type | Description |
------------- | ------------ | ------------ 
-Status | STRING | Success - auth compleated
-
-
-
-
-**Response:**
-```javascript
-{
-  id: 2,
-  params: 
-    [
-    ], 
-  result: 
-    {
-      status: "success"
-    },
-  error: null
-}
-```
-
-</details>
 
 # KLine methods for Graph
 
