@@ -95,7 +95,7 @@ This method provides information via `GET`. The response will return all the inf
 
 **Public Methods Via `POST`:**
 
-First of all to use `POST` methods check how to made [Authorization](#authorization)
+First of all to use `POST` methods check how to made [HTTP Authorization](#http-authorization)
 Use next methods via `POST` and obtain full information:
 
 - [List of Public Pairs](#list-of-public-pairs)
@@ -111,7 +111,7 @@ Use next methods via `POST` and obtain full information:
 
 **Private Methods:**
 
-All of this methods can be use only with `POST`. Before using check [Authorization](#authorization)
+All of this methods can be use only with `POST`. Before using check [HTTP Authorization](#http-authorization)
 
 [List of Public Pairs](#list-of-public-pairs) 
 
