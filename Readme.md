@@ -14,13 +14,15 @@
     - [List of Graphic Data KLine](#list-of-graphic-data-kline)
  
   - [Private Data Methods](#public-data-methods)
-    - [List of Public Pairs](#list-of-public-pairs)
-    - [Specific Public Ticker Data](#specific-public-ticker-data)
-    - [List of Order Book](#list-of-order-book)
-    - [Market History Data](#market-history-data)
-    - [Public Pair List](#public-pair-list)
-    - [Depth List](#depth-list)
-    - [List of Graphic Data KLine](#list-of-graphic-data-kline)
+    - [Create new Order](#create-new-order)
+    - [Cancel Order](#cancel-order)
+    - [Receive my Orders](#receive-my-orders)
+    - [Receive my Balances](#receive-my-balances)
+    - [Receive my Specific Balance](#receive-my-specific-balances)
+    - [Receive my Active Orders](#receive-my-specific-balances)
+    - [Receive my Trades ](#receive-my-specific-balances)
+    - [Receive my Order History](#receive-my-specific-balances)
+    - [Receive my Order History List](#receive-my-specific-balances)
 
 
 
