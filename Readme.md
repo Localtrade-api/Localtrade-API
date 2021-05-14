@@ -14,16 +14,15 @@
     - [List of Graphic Data KLine](#list-of-graphic-data-kline)
  
   - [Private Data Methods](#public-data-methods)
-    - [Create new Order](#create-new-order)
+    - [Create new Limit Order](#create-new-limit-order)
+    - [Create new Market Order](#create-new-market-order)
     - [Cancel Order](#cancel-order)
-    - [Receive my Orders](#receive-my-orders)
-    - [Receive my Balances](#receive-my-balances)
-    - [Receive my Specific Balance](#receive-my-specific-balances)
-    - [Receive my Active Orders](#receive-my-specific-balances)
-    - [Receive my Trades ](#receive-my-specific-balances)
-    - [Receive my Order History](#receive-my-specific-balances)
-    - [Receive my Order History List](#receive-my-specific-balances)
+    - [My Active Orders](#my-active-orders)
 
+    - [My All Trade Balances](#my-all-trade-balances)
+    - [My Specific Trade Balance](#my-specific-trade-balance)
+    - [Get My Order Info](#get-my-order-info)
+    - [My Order History](#my-order-history)
 
 
 - [WebSoket Protocol API](#websoket-protocol-api)
@@ -113,7 +112,17 @@ Use next methods via `POST` and obtain full information:
 
 All of this methods can be use only with `POST`. Before using check [HTTP Authorization](#http-authorization)
 
-[List of Public Pairs](#list-of-public-pairs) 
+
+- [Create new Limit Order](#create-new-limit-order) - used to create a Limit Order with the specified parameters, if successful, returns information about the placed order.
+- [Create new Market Order](#create-new-market-order) - is used to create a Market Order with the specified parameters; if successful, it returns information about the placed order.
+- [Cancel Order](#cancel-order) - used to close the placed Limit Order with the ID of the placed order, if successful, returns information about the closed order.
+- [My Active Orders](#my-active-orders) - used to obtain information on the user's active orders, if successful, it returns a list of active orders.
+
+- [My All Trade Balances](#my-all-trade-balances) - returns the entire list of user balances - used to control all balances.
+- [My Specific Trade Balance](#my-specific-trade-balance) - returns the balance for the specified coin - used to control a specific coin, as a faster alternative to the first method.
+- [Get My Order Info](#get-my-order-info) - returns information about a specific order of a specific user - used to track the status of an order.
+- [My Order History](#my-order-history)- returns the history of orders, it is used to generate reports, control orders and executed orders.
+
 
 
 </details>
@@ -493,8 +502,6 @@ dealMoney | STRING |
 </details>
 
 ### Market History Data
-Latest Deals on selected market
-
 
   <details open>
   <summary>
@@ -763,6 +770,596 @@ market | STRING |
 </details>
 
 
+## Private Data Methods
+
+
+### Create new Limit Order
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/order/new
+```
+
+
+**Request Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+side | STRING | YES |  sell or buy
+amount | STRING | YES | Order amount in 1st Ticker of Pair
+price | STRING | YES | Order price in 2st Ticker of Pair
+
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "side" : "sell",
+  "amount" : "0.1",
+  "price" : "0.1",
+}
+```
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+orderId | STRING  | ID of placed order
+market | STRING  |  Market of placed order
+price | STRING  | Price of placed order
+side | STRING  | Side of placed order
+type | STRING  | Type of placed order
+timestamp | NUMERIC  | Time of placed order
+dealMoney | STRING  | Order Amount in 2st Ticker of Pair 
+dealStock | STRING  | Order Amount in 1st Ticker of Pair
+amount | STRING  | Order Amount in 1st Ticker of Pair
+takerFee | STRING  | Order Taker Fee
+makerFee | STRING  | Order Maker Fee
+left | STRING  | Order left amount - shows how much left in order; if = 0 - order finished
+dealFee | STRING  | Deal Fee of Order
+
+
+**Response:**
+```javascript
+{
+    "success": true,
+    "message": "",
+    "result": [
+        "orderId": 25749,
+        "market": "ETH_BTC",
+        "price": "0.1",
+        "side": "sell",
+        "type": "limit",
+        "timestamp": 1537535284.828868,
+        "dealMoney": "0",
+        "dealStock": "0",
+        "amount": "0.1",
+        "takerFee": "0.002",
+        "makerFee": "0.002",
+        "left": "0.1",
+        "dealFee": "0"
+    ]
+}
+```
+
+</details>
+
+
+
+### Create new Market Order
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/order/new_market
+```
+
+
+**Request Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+direction | STRING | YES |  sell or buy
+amount | STRING | YES | Order amount in 1st Ticker of Pair
+
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "direction": "buy", // or "sell"
+  "amount": 100,
+}
+```
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+orderId | STRING  | ID of placed order
+market | STRING  |  Market of placed order
+price | STRING  | Price of placed order
+side | STRING  | Side of placed order
+type | STRING  | Type of placed order
+timestamp | NUMERIC  | Time of placed order
+dealMoney | STRING  | Order Amount in 2st Ticker of Pair 
+dealStock | STRING  | Order Amount in 1st Ticker of Pair
+amount | STRING  | Order Amount in 1st Ticker of Pair
+takerFee | STRING  | Order Taker Fee
+makerFee | STRING  | Order Maker Fee
+left | STRING  | Order left amount - shows how much left in order; if = 0 - order finished
+dealFee | STRING  | Deal Fee of Order
+
+
+**Response:**
+```javascript
+{
+   "success":true,
+   "message":"",
+   "result":{
+      "orderId":39325112,
+      "market":"BTC_USD",
+      "price":"0",
+      "side":"buy",
+      "type":"market",
+      "timestamp":1583265553.375065,
+      "dealMoney":"9.9999262264853952",
+      "dealStock":"0.00114336",
+      "amount":"10",
+      "takerFee":"0.002",
+      "makerFee":"0",
+      "left":"0.0000737735146048",
+      "dealFee":"0.019999852452970790"
+   },
+   "code":200
+}
+```
+
+</details>
+
+
+### Cancel Order
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/order/cancel
+```
+
+
+**Request Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+orderId | STRING | YES |  Order ID for canceling
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "orderId": 25749
+}
+```
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+orderId | STRING  | ID of placed order
+market | STRING  |  Market of placed order
+price | STRING  | Price of placed order
+side | STRING  | Side of placed order
+type | STRING  | Type of placed order
+timestamp | NUMERIC  | Time of placed order
+dealMoney | STRING  | Order Amount in 2st Ticker of Pair 
+dealStock | STRING  | Order Amount in 1st Ticker of Pair
+amount | STRING  | Order Amount in 1st Ticker of Pair
+takerFee | STRING  | Order Taker Fee
+makerFee | STRING  | Order Maker Fee
+left | STRING  | Order left amount - shows how much left in order; if = 0 - order finished
+dealFee | STRING  | Deal Fee of Order
+
+
+**Response:**
+```javascript
+{
+    "success": true,
+    "message": "",
+    "result": [
+        "orderId": 25749,
+        "market": "ETH_BTC",
+        "price": "0.1",
+        "side": "sell",
+        "type": "limit",
+        "timestamp": 1537535284.828868,
+        "dealMoney": "0",
+        "dealStock": "0",
+        "amount": "0.1",
+        "takerFee": "0.002",
+        "makerFee": "0.002",
+        "left": "0.1",
+        "dealFee": "0"
+    ]
+}
+```
+
+</details>
+
+
+
+
+### My Active Orders
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/orders
+```
+
+
+**Request Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+offset | STRING | NO |  Default: 0
+limit | NUMERIC | NO |  Default: 50
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "offset": 10,
+  "limit": 100 
+}
+```
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+orderId | STRING  | ID of placed order
+market | STRING  |  Market of placed order
+price | STRING  | Price of placed order
+side | STRING  | Side of placed order
+type | STRING  | Type of placed order
+timestamp | NUMERIC  | Time of placed order
+dealMoney | STRING  | Order Amount in 2st Ticker of Pair 
+dealStock | STRING  | Order Amount in 1st Ticker of Pair
+amount | STRING  | Order Amount in 1st Ticker of Pair 
+takerFee | STRING  | Order Taker Fee
+makerFee | STRING  | Order Maker Fee
+left | STRING  | Order left amount - shows how much left in order; if = 0 - order finished
+dealFee | STRING  | Deal Fee of Order
+
+
+**Response:**
+```javascript
+{
+    "success": true,
+    "message": "",
+    "result": 
+      {
+          "limit": 100,
+          "offset": 10,
+          "total": 17,
+          "result": 
+            [
+	       {
+                 "id": 9472,
+                 "left": "1",
+                 "market": "ETH_BTC",
+                 "amount": "1",
+                 "type": "limit" | "market",
+                 "price": "0.01",
+                 "timestamp": 1533561772.211871,
+                 "side": "sell" | "buy",
+                 "dealFee": "0",
+                 "takerFee": "0",
+                 "makerFee": "0",
+                 "dealStock": "0",
+                 "dealMoney": "0"
+               },
+               {
+	         ...
+	       },
+            ]
+      }
+}
+```
+
+</details>
+
+
+
+### My All Trade Balances
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/account/balances
+```
+
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+available | NUMERIC | Amount without active orders
+freeze | STRING | active orders amount
+
+
+
+
+**Response:**
+```javascript
+{
+    "success": true,
+    "message": "",
+    "result": 
+       {
+            "ATB": 
+	    	{
+                   "available": "0",
+                   "freeze": "0"
+            	},
+            "USD": 
+	    	{
+                   "available": "8990",
+                   "freeze": "0"
+            	},
+            	{
+	           ...
+	    	},
+       }
+}
+```
+
+</details>
+
+
+### My Specific Trade Balance
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/account/balance
+```
+
+
+**Request Parameters:**
+
+
+Name | Type  | 
+------------ | ------------ 
+currency | STRING 
+
+
+
+
+**Request:**
+```javascript
+{
+  "currency": "ETH"
+}
+```
+
+**Response Parameters:**
+
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+available | NUMERIC | Amount without active orders
+freeze | STRING | active orders amount
+
+
+
+
+**Response:**
+```javascript
+{
+    "success": true,
+    "message": "",
+    "result": 
+    	{
+            "available": "8990",
+            "freeze": "0"
+        }
+}
+```
+
+</details>
+
+
+### Get My Order Info
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/account/order
+```
+
+
+**Request Parameters:**
+
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+offset | STRING | NO |  Default: 0
+limit | NUMERIC | NO |  Default: 50
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "offset": 10,
+  "limit": 100 
+}
+```
+
+**Response Parameters:**
+
+Name | Type  | Description
+------------ | ------------ | ------------
+time | NUMERIC  | Trade Time
+fee | STRING  | Trade Fee
+price | STRING  | Trade Price
+amount | STRING  | Trade amount in 1st Ticker of Pair
+Id | NUMERIC  | User ID
+dealOrderId | NUMERIC  | Trade ID
+role | NUMERIC  | Trade Role: Taker or Maker
+deal | STRING  | Trade amount in 2st Ticker of Pair. 
+
+
+
+
+
+
+**Response:**
+```javascript
+{
+  {
+    "success": true,
+    "message": "",
+    "result": 
+       {
+          "offset": 0,
+          "limit": 50,
+          "records": 
+            {
+              "time": 1533310924.935978,
+              "fee": "0",
+              "price": "80.22761599",
+              "amount": "2.12687945",
+              "id": 548,
+              "dealOrderId": 1237,
+              "role": 1,
+              "deal": "170.6344677716224055"
+            }
+   }
+}
+```
+
+</details>
+
+
+### My Order History
+
+  <details open>
+  <summary>
+  </summary>
+
+```
+/api/v1/account/order_history_list
+```
+
+
+**Request Parameters:**
+
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | STRING | YES | Any Market
+offset | STRING | NO |  Default: 0
+limit | NUMERIC | NO |  Default: 50
+
+**Request:**
+
+```javascript
+{
+  "market": "ETH_BTC",
+  "offset": 10,
+  "limit": 100 
+}
+```
+
+**Response Parameters:**
+
+Name | Type  | Description
+------------ | ------------ | ------------ 
+amount | STRING  | Order Amount in 1st Ticker of Pair 
+price | STRING  | Price of placed order
+type | STRING  | Type of placed order
+Id | STRING  | ID of placed order
+side | STRING  | Side of placed order 
+ctime | NUMERIC  | Time of create order
+takerFee | STRING  | Order Taker Fee
+ftime | NUMERIC  | Time of finishing order
+market | STRING  |  Market of placed order
+makerFee | STRING  | Order Maker Fee
+dealFee | STRING  | Deal Fee of Order
+dealStock | STRING  | Order Amount in 1st Ticker of Pair
+dealMoney | STRING  | Order Amount in 2st Ticker of Pair 
+marketName | STRING  |  Market of placed order
+
+
+
+
+**Response:**
+```javascript
+{
+  {
+    "success": true,
+    "message": "",
+    "result": 
+      {
+        "records": 
+	  [
+            {
+                "amount": "1",
+                "price": "0.01",
+                "type": "limit" 
+                "id": 9740,
+                "side": "sell" 
+                "ctime": 1533568890.583023,
+                "takerFee": "0.002",
+                "ftime": 1533630652.62185,
+                "market": "ETH_BTC",
+                "makerFee": "0.002",
+                "dealFee": "0.002",
+                "dealStock": "1",
+                "dealMoney": "0.01",
+                "marketName": "ETH_BTC"
+            },
+            {
+	      ...
+	    }
+	  ]
+  }
+}
+```
+
+</details>
+
 
 # WebSoket Protocol API
 
@@ -787,6 +1384,23 @@ Repeated subscription will be cancelled for the same data type.
 
 * [Trade Users Balances Methods](#trade-user-balances-methods) - used to get the balances of the user from which the request is made (the change comes after updating the value of any balance) 
 * [Active Orders and Orders History Methods](#active-orders-and-orders-history-methods) - used to get active orders and their history for a specific user from which the request is made (the change comes after placing, canceling, executing, changing an order)
+
+
+
+
+**Private Methods:**
+
+This method provides information via `POST`. The response will return all the information that was posted by the platform. To obtain private information, use the same methods via `POST` as an authorized user using api keys.
+
+
+- [List of Public Pairs](#list-of-public-pairs) - returns the history of trades for all public pairs - used for tracking to compare prices in the market, control positions for many markets at once.
+- [Specific Public Ticker Data](#specific-public-ticker-data) - returns the trading history for a specific selected pair - used to track a specific pair and track its key characteristics.
+- [List of Order Book](#list-of-order-book) - Returns all positions for a specific market for all orders of the order book in the selected direction with pagination - used for full monitoring of the order book status, its changes, evaluation of its placed orders and their priority.
+- [Market History Data](#market-history-data) - returns the history of trading on the market - used to track your own or someone else's executed orders, trading dynamics, control over buying / selling.
+- [Public Pair List](#public-pair-list) - returns all public pairs - used to track new pairs, monitor pairs for MM.
+- [Depth List](#depth-list) - returns data on the order book with pagination for a specific pair - used to track the depth of the order book, control placed orders, monitor the market in light mode.
+- [List of Graphic Data KLine](#list-of-graphic-data-kline) - returns data on charts - is used to create personal charts, control market trends.
+
 
 
 
